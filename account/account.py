@@ -33,5 +33,19 @@ class Account():
         total_withdrawals = sum(transaction["amount"] for transaction in self.withdrawals)
         current_balance = total_deposits - total_withdrawals
         return current_balance
+    def repay_loan(self, amount):
+        if amount > self.loan_balance:
+            self.account_balance += amount - self.loan_balance
+            self.loan_balance = 0
+        else:
+            self.loan_balance -= amount
+   
+     def transfer(self, amount, account):
+        if amount <= self.balance:
+            self.balance -= amount
+            account.balance += amount
+            return f"Transferred {amount} to the account with balance {account.balance}"
+        else:
+            return f"Insufficient balance to transfer"
 
 
